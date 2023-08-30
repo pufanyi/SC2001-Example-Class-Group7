@@ -13,6 +13,7 @@ int main() {
     int threshold;
     printf("Enter the threshold: ");
     scanf("%d", &threshold);
+
     int *array = (int *) malloc(sizeof(int) * array_size);
     generateRandomPermutation(array, array + array_size);
 
@@ -20,7 +21,10 @@ int main() {
     outputSortingResult("Merge sort", &result1);
 
     EvaluationResult result2 = evaluate((SortFunction) mergeSortWithInsertionSort, array,
-                                       array + array_size, threshold);
+                                        array + array_size, threshold);
     outputSortingResult("Merge sort with insertion sort threshold", &result2);
+
+    free(array);
+
     return 0;
 }

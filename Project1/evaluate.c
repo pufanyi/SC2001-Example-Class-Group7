@@ -19,13 +19,14 @@ EvaluationResult evaluate(SortFunction sortFunction, const int *array_begin, con
     size_t array_size = array_end - array_begin;
     int *array_copy = (int *) calloc(array_size, sizeof(int));
     memcpy(array_copy, array_begin, sizeof(int) * array_size);
-    clock_t begin = clock();
 
     va_list args;
     va_start(args, array_end);
 
+    clock_t begin = clock();
     compare_count_t compareCount = sortFunction(array_copy, array_copy + array_size, *args);
     clock_t end = clock();
+
     EvaluationResult result;
     result.time = end - begin;
     result.compareCount = compareCount;
