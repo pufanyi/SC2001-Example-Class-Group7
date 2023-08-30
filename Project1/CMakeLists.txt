@@ -4,5 +4,5 @@ project(Project1 C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(Project1 main.c
-        testcase_generator.h
-        testcase_generator.c)
+        test_case_generator.h
+        test_case_generator.c)
