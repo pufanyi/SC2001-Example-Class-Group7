@@ -6,13 +6,8 @@ set(CMAKE_C_STANDARD 11)
 add_executable(Project1 main.c
         test_case_generator.h
         test_case_generator.c
-        insertion_sort.c
-        insertion_sort.h
-        merge_sort.c
-        merge_sort.h
-        check.c
-        check.h
         evaluate.c
         evaluate.h
-        general_sort.h
+        sort.c
+        sort.h
 )

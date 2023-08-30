@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <malloc.h>
-#include <memory.h>
-#include <assert.h>
 
 #include "test_case_generator.h"
 #include "evaluate.h"
-#include "merge_sort.h"
-#include "insertion_sort.h"
+#include "sort.h"
 
 int main() {
     setUpRandom();

@@ -1,11 +1,19 @@
-#include "evaluate.h"
-#include "check.h"
-
 #include <time.h>
 #include <stdio.h>
 #include <malloc.h>
 #include <memory.h>
 #include <stdarg.h>
+
+#include "evaluate.h"
+
+int isSorted(const int *begin, const int *end) {
+    for (const int *p = begin; p != end - 1; ++p) {
+        if (*p > *(p + 1)) {
+            return 0;
+        }
+    }
+    return 1;
+}
 
 EvaluationResult evaluate(SortFunction sortFunction, const int *array_begin, const int *array_end, ...) {
     size_t array_size = array_end - array_begin;
@@ -26,7 +34,7 @@ EvaluationResult evaluate(SortFunction sortFunction, const int *array_begin, con
     return result;
 }
 
-void outputSortingResult(const char* algoName, const EvaluationResult *result) {
+void outputSortingResult(const char *algoName, const EvaluationResult *result) {
     printf("========================================\n");
     printf("Algorithm: %s\n", algoName);
     printf("Time: %ld\n", result->time);
