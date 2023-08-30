@@ -1,7 +1,8 @@
 #include "insertion_sort.h"
+#include "general_sort.h"
 
-int insertionSort(int *begin, const int *end) {
-    int compareCount = 0;
+compare_count_t insertionSort(int *begin, const int *end) {
+    compare_count_t compareCount = 0;
     for (int *now = begin + 1; now != end; ++now) {
         int key = *now;
         int *p = now - 1;
