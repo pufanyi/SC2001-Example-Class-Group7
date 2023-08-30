@@ -50,3 +50,29 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# IDE-specific files and directories
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.user
+*.sln.docstates
+
+# CMake-generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+ALL_BUILD.*
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
+# CMake Release build folder
+Release/
+x86_64/
+x64/
+
+# IntelliJ CMake Build Folder
+cmake-build-*/
