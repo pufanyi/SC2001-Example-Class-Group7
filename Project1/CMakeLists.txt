@@ -10,4 +10,6 @@ add_executable(Project1 main.c
         insertion_sort.h
         merge_sort.c
         merge_sort.h
+        check.c
+        check.h
 )
