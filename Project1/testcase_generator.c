@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "testcase_generator.h"
+
+int randInt(int min, int max) {
+    if (max <= min) {
+        fprintf(stderr, "Error: Invalid range in randInt function.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return min + rand() % (max - min + 1);
+}
+
+void randomShuffle(int *begin, int *end) {
+    size_t size = end - begin;
+    for (size_t i = 0; i < size; ++i) {
+        size_t j = i + rand() % (size - i);
+        int temp = begin[i];
+        begin[i] = begin[j];
+        begin[j] = temp;
+    }
+}
+
+void setUpRandom() {
+    srand((unsigned int) time(NULL));
+}
