@@ -5,9 +5,6 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(Project1 main.c
         test_case_generator.h
-        test_case_generator.c
-        evaluate.c
         evaluate.h
-        sort.c
         sort.h
 )
