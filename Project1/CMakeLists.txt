@@ -7,4 +7,5 @@ add_executable(Project1 main.c
         test_case_generator.h
         evaluate.h
         sort.h
+        "mersenne_twister.h"
 )
