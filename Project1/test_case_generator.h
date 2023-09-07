@@ -3,21 +3,19 @@
 
 #include <time.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 
-int randInt(int min, int max) {
-    if (max <= min) {
-        fprintf(stderr, "Error: Invalid range in randInt function.\n");
-        exit(EXIT_FAILURE);
-    }
+#include "mersenne_twister.h"
 
-    return min + rand() % (max - min + 1);
+int randRange(int min, int max) {
+    return randPositiveInt() % (max - min + 1) + min;
 }
 
 void randomShuffle(int *begin, const int *end) {
     size_t size = end - begin;
     for (size_t i = 0; i < size; ++i) {
-        size_t j = i + rand() % (size - i);
+        size_t j = i + randPositiveInt() % (size - i);
         int temp = begin[i];
         begin[i] = begin[j];
         begin[j] = temp;
@@ -26,7 +24,7 @@ void randomShuffle(int *begin, const int *end) {
 
 void generateRandomArray(int *begin, const int *end, int min, int max) {
     for (int *p = begin; p != end; ++p) {
-        *p = randInt(min, max);
+        *p = randRange(min, max);
     }
 }
 
@@ -36,10 +34,6 @@ void generateRandomPermutation(int *begin, const int *end) {
         begin[i] = (int) i;
     }
     randomShuffle(begin, end);
-}
-
-void setUpRandom() {
-    srand((unsigned int) time(NULL));
 }
 
 #endif //PROJECT1_TEST_CASE_GENERATOR_H

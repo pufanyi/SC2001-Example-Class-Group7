@@ -46,7 +46,7 @@ void outputSortingResult(const char *algoName, const EvaluationResult *result) {
     printf("========================================\n");
     printf("Algorithm: %s\n", algoName);
     printf("Time: %ld\n", result->time);
-    printf("Compare count: %llu ms\n", result->compareCount);
+    printf("Compare count: %llu\n", result->compareCount);
     printf("Correctness: %s\n", result->correctness ? "true" : "false");
     printf("========================================\n");
 }

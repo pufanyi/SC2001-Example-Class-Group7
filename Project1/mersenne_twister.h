@@ -44,7 +44,8 @@ void initMersenneTwister(MersenneTwister *mt, uint32_t seed) {
 
 void twist(MersenneTwister *mt) {
     for (uint32_t i = 0; i < MERSENNE_TWISTER_N; ++i) {
-        uint32_t x = (mt->state[i] & MERSENNE_TWISTER_UPPER_MASK) + (mt->state[(i + 1) % 624] & MERSENNE_TWISTER_LOWER_MASK);
+        uint32_t x =
+                (mt->state[i] & MERSENNE_TWISTER_UPPER_MASK) + (mt->state[(i + 1) % 624] & MERSENNE_TWISTER_LOWER_MASK);
         uint32_t xA = x >> 1;
         if (x % 2 != 0) {
             xA ^= MERSENNE_TWISTER_A;
@@ -67,7 +68,7 @@ uint32_t extract(MersenneTwister *mt) {
     return y;
 }
 
-uint32_t randInt() {
+uint32_t randUInt() {
     static MersenneTwister mt;
     static int initialized = 0;
     if (!initialized) {
@@ -75,6 +76,14 @@ uint32_t randInt() {
         initialized = 1;
     }
     return extract(&mt);
+}
+
+int randInt() {
+    return (int) randUInt();
+}
+
+int randPositiveInt() {
+    return (int) randUInt() & 0x7FFFFFFF;
 }
 
 #endif //PROJECT1_MERSENNE_TWISTER_H

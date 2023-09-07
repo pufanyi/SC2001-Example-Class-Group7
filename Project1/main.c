@@ -6,7 +6,6 @@
 #include "sort.h"
 
 int main() {
-    setUpRandom();
     int array_size;
     printf("Enter the size of the array: ");
     scanf("%d", &array_size);
