@@ -102,4 +102,33 @@ compare_count_t mergeSortNoRecursion(int *begin, int *end) {
     return compareCount;
 }
 
+compare_count_t mergeSortNoRecursionWithInsertionSort(int *begin, int *end, int threshold) {
+    size_t size = end - begin;
+    compare_count_t compareCount = 0;
+    int *temp = (int *) calloc(size, sizeof(int));
+    for (int *p = begin; p < end; p += threshold) {
+        int *q = p + threshold;
+        if (q > end) {
+            q = end;
+        }
+        compareCount += insertionSort(p, q);
+    }
+    for (size_t step = threshold; step < size; step <<= 1) {
+        for (size_t i = 0; i < size; i += step * 2) {
+            int *left = begin + i;
+            int *mid = left + step;
+            int *right = mid + step;
+            if (mid >= end) {
+                continue;
+            }
+            if (right > end) {
+                right = end;
+            }
+            compareCount += mergeWithExistingTemp(left, mid, right, temp);
+        }
+    }
+    free(temp);
+    return compareCount;
+}
+
 #endif //PROJECT1_SORT_H
