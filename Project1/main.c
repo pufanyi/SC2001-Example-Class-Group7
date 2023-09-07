@@ -23,6 +23,9 @@ int main() {
                                         array + array_size, threshold);
     outputSortingResult("Merge sort with insertion sort threshold", &result2);
 
+    EvaluationResult result3 = evaluate((SortFunction) mergeSortNoRecursion, array, array + array_size);
+    outputSortingResult("Merge sort no recursion", &result3);
+
     free(array);
 
     return 0;

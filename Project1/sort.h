@@ -21,12 +21,10 @@ compare_count_t insertionSort(int *begin, const int *end) {
     return compareCount;
 }
 
-compare_count_t merge(int *begin, int *mid, const int *end) {
+compare_count_t mergeWithExistingTemp(int *begin, int *mid, const int *end, int *temp) {
     compare_count_t compareCount = 0;
     int *left = begin;
     int *right = mid;
-    size_t baseSize = sizeof(int) * (end - begin);
-    int *temp = (int *) malloc(baseSize);
     int *p = temp;
     while (left != mid && right != end) {
         if (*left <= *right) {
@@ -42,7 +40,15 @@ compare_count_t merge(int *begin, int *mid, const int *end) {
     while (right != end) {
         *p++ = *right++;
     }
-    memcpy(begin, temp, baseSize);
+    memcpy(begin, temp, sizeof(int) * (end - begin));
+    return compareCount;
+}
+
+compare_count_t merge(int *begin, int *mid, const int *end) {
+    compare_count_t compareCount = 0;
+    size_t size = end - begin;
+    int *temp = (int *) calloc(size, sizeof(int));
+    compareCount += mergeWithExistingTemp(begin, mid, end, temp);
     free(temp);
     return compareCount;
 }
@@ -71,6 +77,28 @@ compare_count_t mergeSortWithInsertionSort(int *begin, const int *end, int thres
         compareCount += mergeSortWithInsertionSort(mid, end, threshold);
         compareCount += merge(begin, mid, end);
     }
+    return compareCount;
+}
+
+compare_count_t mergeSortNoRecursion(int *begin, int *end) {
+    size_t size = end - begin;
+    compare_count_t compareCount = 0;
+    int *temp = (int *) calloc(size, sizeof(int));
+    for (size_t step = 1; step < size; step <<= 1) {
+        for (size_t i = 0; i < size; i += step * 2) {
+            int *left = begin + i;
+            int *mid = left + step;
+            int *right = mid + step;
+            if (mid >= end) {
+                continue;
+            }
+            if (right > end) {
+                right = end;
+            }
+            compareCount += mergeWithExistingTemp(left, mid, right, temp);
+        }
+    }
+    free(temp);
     return compareCount;
 }
 
