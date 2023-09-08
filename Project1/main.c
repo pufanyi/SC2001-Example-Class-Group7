@@ -19,7 +19,7 @@ void eval_diff_n() {
 }
 
 void eval_diff_s() {
-    const int start = 1;
+    const int start = 0;
     const int end = 128;
     const int step = 1;
     const int times = 5;
@@ -31,6 +31,6 @@ void eval_diff_s() {
 int main() {
     mkdir_func("data");
     eval_diff_s();
-    eval_diff_n();
+    // eval_diff_n();
     return 0;
 }

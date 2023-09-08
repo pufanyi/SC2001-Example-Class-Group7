@@ -62,6 +62,7 @@ EvaluationResult evaluate_multiple(SortFunction sortFunction, const int times, c
     va_start(args, size);
 
     for (int i = 0; i < times; ++i) {
+        printf("Evaluating %d/%d\n", i + 1, times);
         generateRandomArray(array_begin, array_end, 1, size);
         EvaluationResult result = evaluate(sortFunction, array_begin, array_end, *args);
         finalResult.correctness &= result.correctness;
