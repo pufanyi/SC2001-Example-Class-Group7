@@ -8,4 +8,6 @@ add_executable(Project1 main.c
         evaluate.h
         sort.h
         "mersenne_twister.h"
+        analyze.h
+        file.h
 )
