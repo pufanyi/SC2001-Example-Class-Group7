@@ -6,6 +6,7 @@
 #include <stdarg.h>
 
 #include "sort.h"
+#include "test_case_generator.h"
 
 typedef struct EvaluationResult {
     int correctness;
@@ -40,6 +41,39 @@ EvaluationResult evaluate(SortFunction sortFunction, const int *array_begin, con
     result.correctness = isSorted(array_copy, array_copy + array_size);
     free(array_copy);
     return result;
+}
+
+int roundDoubleToInt(double x) {
+    return (int) (x + 0.5);
+}
+
+EvaluationResult evaluate_multiple(SortFunction sortFunction, const int times, const int size, ...) {
+    int *array = (int *) malloc(sizeof(int) * size);
+    int *array_begin = array;
+    int *array_end = array + size;
+
+    EvaluationResult finalResult;
+    finalResult.correctness = 1;
+    finalResult.time = 0;
+    finalResult.compareCount = 0;
+
+    va_list args;
+    va_start(args, size);
+
+    for (int i = 0; i < times; ++i) {
+        generateRandomArray(array_begin, array_end, 1, size);
+        EvaluationResult result = evaluate(sortFunction, array_begin, array_end, *args);
+        finalResult.correctness &= result.correctness;
+        finalResult.time += result.time;
+        finalResult.compareCount += result.compareCount;
+    }
+
+    finalResult.time = roundDoubleToInt((double) finalResult.time / times);
+    finalResult.compareCount = roundDoubleToInt((double) finalResult.compareCount / times);
+
+    free(array);
+
+    return finalResult;
 }
 
 void outputSortingResult(const char *algoName, const EvaluationResult *result) {
