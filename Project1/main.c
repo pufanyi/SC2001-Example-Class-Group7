@@ -12,5 +12,7 @@ int main() {
     int step = 1000000;
     analyze_with_diff_n((SortFunction) mergeSortWithInsertionSort, 5, start + step, end, step,
                         "./data/merge_sort_with_insertion_sort.csv", 16);
+    analyze_with_diff_n((SortFunction) mergeSort, 5, start + step, end, step,
+                        "./data/merge_sort.csv");
     return 0;
 }
