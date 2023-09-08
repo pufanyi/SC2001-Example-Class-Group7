@@ -47,8 +47,8 @@ int roundDoubleToInt(double x) {
     return (int) (x + 0.5);
 }
 
-EvaluationResult evaluate_multiple(SortFunction sortFunction, const int times, const int size, ...) {
-    printf("Evaluating %d times with size %d...\n", times, size);
+EvaluationResult evaluate_multiple(SortFunction sortFunction, const char *function_name, const int times, const int size, ...) {
+    printf("Evaluating %s function %d times with size %d...\n", function_name, times, size);
 
     int *array = (int *) malloc(sizeof(int) * size);
     int *array_begin = array;
