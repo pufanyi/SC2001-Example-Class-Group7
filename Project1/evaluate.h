@@ -86,4 +86,12 @@ void outputSortingResult(const char *algoName, const EvaluationResult *result) {
     printf("========================================\n");
 }
 
+void outputSortingResultWithoutName(const EvaluationResult *result) {
+    printf("========================================\n");
+    printf("Time: %ld\n", result->time);
+    printf("Compare count: %" PRIu64 "\n", result->compareCount);
+    printf("Correctness: %s\n", result->correctness ? "true" : "false");
+    printf("========================================\n");
+}
+
 #endif //PROJECT1_EVALUATE_H
