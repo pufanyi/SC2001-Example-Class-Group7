@@ -4,6 +4,7 @@
 #include <time.h>
 #include <memory.h>
 #include <stdarg.h>
+#include <inttypes.h>
 
 #include "sort.h"
 #include "test_case_generator.h"
@@ -80,7 +81,7 @@ void outputSortingResult(const char *algoName, const EvaluationResult *result) {
     printf("========================================\n");
     printf("Algorithm: %s\n", algoName);
     printf("Time: %ld\n", result->time);
-    printf("Compare count: %llu\n", result->compareCount);
+    printf("Compare count: %" PRIu64 "\n", result->compareCount);
     printf("Correctness: %s\n", result->correctness ? "true" : "false");
     printf("========================================\n");
 }

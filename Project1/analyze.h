@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdarg.h>
+#include <inttypes.h>
 
 #include "evaluate.h"
 #include "sort.h"
@@ -17,7 +18,7 @@ analyze_with_diff_n(SortFunction sortFunction, const int times, const int min_si
     for (int size = min_size; size <= max_size; size += step) {
         printf("Evaluating %s with n = %d\n", function_name, size);
         EvaluationResult result = evaluate_multiple(sortFunction, times, size, *args);
-        fprintf(file, "%d,%llu,%ld\n", size, result.compareCount, result.time);
+        fprintf(file, "%d,%" PRIu64 ",%ld\n", size, result.compareCount, result.time);
     }
     fclose(file);
 }
@@ -32,7 +33,7 @@ void analyze_with_diff_s(SortFunction sortFunction, const int times, const int s
     for (int threshold = min_threshold; threshold <= max_threshold; threshold += step) {
         printf("Evaluating %s with threshold = %d\n", function_name, threshold);
         EvaluationResult result = evaluate_multiple(sortFunction, times, size, *args);
-        fprintf(file, "%d,%llu,%ld\n", threshold, result.compareCount, result.time);
+        fprintf(file, "%d,%" PRIu64 ",%ld\n", threshold, result.compareCount, result.time);
     }
     fclose(file);
 }
