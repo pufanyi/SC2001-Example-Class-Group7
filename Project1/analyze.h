@@ -27,9 +27,9 @@ void analyze_with_diff_s(SortFunction sortFunction, const int times, const int s
                          const int max_threshold, const int step, const char *file_name, const char *function_name,
                          ...) {
     FILE *file = fopen(file_name, "w");
-    fprintf(file, "threshold\n");
+    fprintf(file, "threshold");
     for (int i = 0; i < times; ++i) {
-        fprintf(file, ",CompareCount%d,time%d", i + 1);
+        fprintf(file, ",CompareCount%d,time%d", i + 1, i + 1);
     }
     fprintf(file, "\n");
     va_list args;
