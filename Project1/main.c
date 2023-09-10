@@ -22,7 +22,7 @@ void eval_diff_s() {
     const int start = 4;
     const int end = 40;
     const int step = 4;
-    const int times = 5;
+    const int times = 3;
     const int size = 50000000;
     analyze_with_diff_s((SortFunction) mergeSortWithInsertionSort, times, size, start, end, step,
                         "./data/merge_sort_with_insertion_sort_diff_s.csv", "merge sort with insertion sort");
