@@ -78,6 +78,17 @@ EvaluationResult evaluate_multiple(SortFunction sortFunction, const int times, c
     return finalResult;
 }
 
+EvaluationResult *evaluate_multiple_with_known_array(SortFunction SortFunction, const int times, int **arrays_begin, int **arrays_end, ...) {
+    EvaluationResult *results = (EvaluationResult *) malloc(sizeof(EvaluationResult) * times);
+    va_list args;
+    va_start(args, arrays_end);
+    for (int i = 0; i < times; ++i) {
+        EvaluationResult result = evaluate(SortFunction, arrays_begin[i], arrays_end[i], *args);
+        results[i] = result;
+    }
+    return results;
+}
+
 void outputSortingResult(const char *algoName, const EvaluationResult *result) {
     printf("========================================\n");
     printf("Algorithm: %s\n", algoName);
