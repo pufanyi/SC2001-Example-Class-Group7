@@ -62,6 +62,7 @@ void analyze_with_diff_s(SortFunction sortFunction, const int times, const int s
         for (int i = 0; i < times; ++i) {
             fprintf(file, ",%" PRIu64 ",%ld", results[i].compareCount, results[i].time);
         }
+        fprintf(file, "\n");
         free(results);
     }
 
