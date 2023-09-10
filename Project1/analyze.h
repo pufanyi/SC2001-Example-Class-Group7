@@ -27,15 +27,44 @@ void analyze_with_diff_s(SortFunction sortFunction, const int times, const int s
                          const int max_threshold, const int step, const char *file_name, const char *function_name,
                          ...) {
     FILE *file = fopen(file_name, "w");
-    fprintf(file, "threshold,compareCount,time\n");
+    fprintf(file, "threshold\n");
+    for (int i = 0; i < times; ++i) {
+        fprintf(file, ",CompareCount%d,time%d", i + 1);
+    }
+    fprintf(file, "\n");
     va_list args;
     va_start(args, function_name);
+
+    int **arrays_begin = (int **) malloc(sizeof(int *) * times);
+    int **arrays_end = (int **) malloc(sizeof(int *) * times);
+    for (int i = 0; i < times; ++i) {
+        arrays_begin[i] = (int *) malloc(sizeof(int) * size);
+        arrays_end[i] = arrays_begin[i] + size;
+        generateRandomArray(arrays_begin[i], arrays_end[i], 1, size);
+    }
+
+
     for (int threshold = min_threshold; threshold <= max_threshold; threshold += step) {
         printf("Evaluating %s with threshold = %d\n", function_name, threshold);
-        EvaluationResult result = evaluate_multiple(sortFunction, times, size, *args);
-        fprintf(file, "%d,%" PRIu64 ",%ld\n", threshold, result.compareCount, result.time);
-        outputSortingResultWithoutName(&result);
+        EvaluationResult *results = evaluate_multiple_with_known_array(sortFunction, times, arrays_begin, arrays_end, threshold);
+        EvaluationResult finalResult;
+        finalResult.correctness = 1;
+        finalResult.time = 0;
+        finalResult.compareCount = 0;
+        for (int i = 0; i < times; ++i) {
+            finalResult.correctness &= results[i].correctness;
+            finalResult.time += results[i].time;
+            finalResult.compareCount += results[i].compareCount;
+        }
+        finalResult.time = roundDoubleToInt((double) finalResult.time / times);
+        finalResult.compareCount = roundDoubleToInt((double) finalResult.compareCount / times);
+        fprintf(file, "%d", threshold);
+        for (int i = 0; i < times; ++i) {
+            fprintf(file, ",%" PRIu64 ",%ld", results[i].compareCount, results[i].time);
+        }
+        free(results);
     }
+
     fclose(file);
 }
 
