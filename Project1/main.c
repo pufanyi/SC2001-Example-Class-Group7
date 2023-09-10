@@ -19,11 +19,11 @@ void eval_diff_n() {
 }
 
 void eval_diff_s() {
-    const int start = 4;
-    const int end = 80;
-    const int step = 4;
+    const int start = 1;
+    const int end = 126;
+    const int step = 1;
     const int times = 3;
-    const int size = 50000000;
+    const int size = 20000000;
     analyze_with_diff_s((SortFunction) mergeSortWithInsertionSort, times, size, start, end, step,
                         "./data/merge_sort_with_insertion_sort_diff_s.csv", "merge sort with insertion sort");
 }
