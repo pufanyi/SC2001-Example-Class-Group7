@@ -17,8 +17,10 @@ analyze_with_diff_n(SortFunction sortFunction, const int times, const int min_si
     va_start(args, function_name);
     for (int size = min_size; size <= max_size; size += step) {
         printf("Evaluating %s with n = %d\n", function_name, size);
+        fflush(stdout);
         EvaluationResult result = evaluate_multiple(sortFunction, times, size, *args);
         fprintf(file, "%d,%" PRIu64 ",%ld\n", size, result.compareCount, result.time);
+        fflush(file);
     }
     fclose(file);
 }
@@ -30,8 +32,10 @@ void analyze_with_diff_s(SortFunction sortFunction, const int times, const int s
     fprintf(file, "threshold");
     for (int i = 0; i < times; ++i) {
         fprintf(file, ",CompareCount%d,time%d", i + 1, i + 1);
+        fflush(file);
     }
     fprintf(file, "\n");
+    fflush(file);
     va_list args;
     va_start(args, function_name);
 
@@ -46,6 +50,7 @@ void analyze_with_diff_s(SortFunction sortFunction, const int times, const int s
 
     for (int threshold = min_threshold; threshold <= max_threshold; threshold += step) {
         printf("Evaluating %s with threshold = %d\n", function_name, threshold);
+        fflush(stdout);
         EvaluationResult *results = evaluate_multiple_with_known_array(sortFunction, times, arrays_begin, arrays_end, threshold);
         EvaluationResult finalResult;
         finalResult.correctness = 1;
@@ -61,8 +66,10 @@ void analyze_with_diff_s(SortFunction sortFunction, const int times, const int s
         fprintf(file, "%d", threshold);
         for (int i = 0; i < times; ++i) {
             fprintf(file, ",%" PRIu64 ",%ld", results[i].compareCount, results[i].time);
+            fflush(file);
         }
         fprintf(file, "\n");
+        fflush(file);
         free(results);
     }
 
