@@ -28,9 +28,27 @@ void eval_diff_s() {
                         "./data/merge_sort_with_insertion_sort_diff_s.csv", "merge sort with insertion sort");
 }
 
+void eval_diff_n_and_s() {
+    const int start = 10000000;
+    const int end =50000000;
+    const int step = 10000000;
+    const int times = 3;
+    const int start_s = 1;
+    const int end_s = 128;
+    const int step_s = 1;
+    for (int n = start; n <= end; n += step) {
+        char file_name[100];
+        char function_name[100];
+        sprintf(file_name, "./data/merge_sort_with_insertion_sort_diff_n_and_s_%d.csv", n);
+        sprintf(function_name, "merge sort with insertion sort, n = %d", n);
+        analyze_with_diff_s((SortFunction) mergeSortWithInsertionSort, times, n, start_s, end_s, step_s, file_name, function_name);
+    }
+}
+
 int main() {
     mkdir_func("data");
-    eval_diff_s();
+    eval_diff_n_and_s();
+    // eval_diff_s();
     // eval_diff_n();
     return 0;
 }
