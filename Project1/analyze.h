@@ -47,7 +47,6 @@ void analyze_with_diff_s(SortFunction sortFunction, const int times, const int s
         generateRandomArray(arrays_begin[i], arrays_end[i], 1, size);
     }
 
-
     for (int threshold = min_threshold; threshold <= max_threshold; threshold += step) {
         printf("Evaluating %s with threshold = %d\n", function_name, threshold);
         fflush(stdout);
@@ -71,6 +70,10 @@ void analyze_with_diff_s(SortFunction sortFunction, const int times, const int s
         fprintf(file, "\n");
         fflush(file);
         free(results);
+    }
+
+    for (int i = 0; i < times; ++i) {
+        free(arrays_begin[i]);
     }
 
     fclose(file);
