@@ -1,0 +1,4 @@
+#ifndef PROJECT2_GRAPH_H
+#define PROJECT2_GRAPH_H
+
+#endif //PROJECT2_GRAPH_H
