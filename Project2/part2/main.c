@@ -1,17 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Declare a heap structure
-struct Heap
-{
-  node **arr;
-  int size;
-  int capacity;
-};
-
-// define the struct Heap name
-typedef struct Heap heap;
-
 struct node
 {
   int vertex;
@@ -29,12 +18,23 @@ struct Graph
 typedef struct node node;
 typedef struct Graph Graph;
 
+// Declare a heap structure
+struct Heap
+{
+  node **arr;
+  int size;
+  int capacity;
+};
+
+// define the struct Heap name
+typedef struct Heap heap;
+
 // forward declarations
-heap *createHeap(int capacity, node **nums);
+heap *createHeap(int capacity, Graph *g);
 void insertHelper(heap *h, int index);
 void heapify(heap *h, int index);
-int extractMin(heap *h);
-void insert(heap *h, int data);
+node *extractMin(heap *h);
+void insert(heap *h, node *data);
 node *createNode(int v, int w);
 Graph *createAGraph(int vertices);
 void addEdge(Graph *graph, int s, int d, int w);
@@ -98,7 +98,7 @@ void printGraph(Graph *graph)
 //////////////////////////////// HEAP ///////////////////////////////////
 
 // Define a createHeap function
-heap *createHeap(int capacity, node **nodes)
+heap *createHeap(int capacity, Graph *g)
 {
   // Allocating memory to heap h
   heap *h = (heap *)malloc(sizeof(heap));
@@ -122,10 +122,17 @@ heap *createHeap(int capacity, node **nodes)
     printf("Memory error");
     return NULL;
   }
-  int i;
-  for (i = 0; i < capacity; i++)
+
+  // inserting nodes into heap initially
+  int i = 0; // count size of heap
+  for (int j = 0; j < g->numVertices; j++)
   {
-    h->arr[i] = nodes[i];
+    node *temp = g->adjLists[j];
+    while (temp)
+    {
+      h->arr[i++] = temp;
+      temp = temp->next;
+    }
   }
 
   h->size = i;
@@ -146,11 +153,11 @@ void insertHelper(heap *h, int index)
   // in parent variable
   int parent = (index - 1) / 2;
 
-  if (h->arr[parent] > h->arr[index])
+  if (h->arr[parent]->weight > h->arr[index]->weight)
   {
     // Swapping when child is smaller
     // than parent element
-    int temp = h->arr[parent];
+    node *temp = h->arr[parent];
     h->arr[parent] = h->arr[index];
     h->arr[index] = temp;
 
@@ -174,15 +181,15 @@ void heapify(heap *h, int index)
 
   // store left or right element in min if
   // any of these is smaller that its parent
-  if (left != -1 && h->arr[left] < h->arr[index])
+  if (left != -1 && h->arr[left]->weight < h->arr[index]->weight)
     min = left;
-  if (right != -1 && h->arr[right] < h->arr[min])
+  if (right != -1 && h->arr[right]->weight < h->arr[min]->weight)
     min = right;
 
   // Swapping the nodes
   if (min != index)
   {
-    int temp = h->arr[min];
+    node *temp = h->arr[min];
     h->arr[min] = h->arr[index];
     h->arr[index] = temp;
 
@@ -192,15 +199,15 @@ void heapify(heap *h, int index)
   }
 }
 
-int extractMin(heap *h)
+node *extractMin(heap *h)
 {
-  int deleteItem;
+  node *deleteItem;
 
   // Checking if the heap is empty or not
   if (h->size == 0)
   {
     printf("\nHeap is empty.");
-    return -999;
+    return NULL;
   }
 
   // Store the node in deleteItem that
@@ -231,7 +238,7 @@ int extractHeap(heap *h, int num)
   int i;
   for (i = 0; i < h->size; i++)
   {
-    if (h->arr[i] == num)
+    if (h->arr[i]->vertex == num)
     {
       break;
     }
@@ -252,7 +259,7 @@ int extractHeap(heap *h, int num)
 }
 
 // Define a insert function
-void insert(heap *h, int data)
+void insert(heap *h, node *data)
 {
 
   // Checking if heap is full or not
@@ -273,85 +280,68 @@ void printHeap(heap *h)
 
   for (int i = 0; i < h->size; i++)
   {
-    printf("%d ", h->arr[i]);
+    printf("%d[%d] ", h->arr[i]->vertex, h->arr[i]->weight);
   }
   printf("\n");
 }
 
 //////////////////////////////// DIJKSTRA ///////////////////////////////////
 
-void dijkstra(Graph *graph, int src)
-{
-  int graphSize = graph->numVertices; // size of graph
-  // Array d holds the shortest dist
-  int d[graphSize];
-  // Array S is whether a node is visited. 1=true 0=false
-  int S[graphSize];
-  // Array pi gives parent of node in shortest path
-  int pi[graphSize];
+// void dijkstra(Graph *graph, int src)
+// {
+//   int graphSize = graph->numVertices; // size of graph
+//   // Array d holds the shortest dist
+//   int d[graphSize];
+//   // Array S is whether a node is visited. 1=true 0=false
+//   int S[graphSize];
+//   // Array pi gives parent of node in shortest path
+//   int pi[graphSize];
 
-  // Initialise the arrays
-  for (int i = 0; i < graphSize; i++)
-  {
-    d[i] = INT_MAX;
-    S[i] = 0;
-    pi[i] = -1;
-  }
+//   // Initialise the arrays
+//   for (int i = 0; i < graphSize; i++)
+//   {
+//     d[i] = INT_MAX;
+//     S[i] = 0;
+//     pi[i] = -1;
+//   }
 
-  d[src] = 0;
+//   d[src] = 0;
 
-  // Insert all nodes into heap
-  int v;
-  int nums[graphSize];
-  for (v = 0; v < graph->numVertices; v++)
-  {
-    node *temp = graph->adjLists[v];
-    while (temp)
-    {
-      nums[v] = graph->adjLists[v]->vertex;
-      temp = temp->next;
-    }
-  }
-  heap *hp = createHeap(graphSize, nums);
-  printHeap(hp);
+//   // Insert all nodes into heap
+//   heap *hp = createHeap(graph->numEdges, graph->adjLists);
+//   printHeap(hp);
 
-  // Run algo
-  while (hp->size > 0)
-  {
-    int u = extractMin(hp);
-    printf("%d", u);
-    S[u] = 1; // Add u to S
+//   // Run algo
+//   while (hp->size > 0)
+//   {
+//     node *u = extractMin(hp);
+//     printf("%d", u);
+//     S[u] = 1; // Add u to S
 
-    node *temp = graph->adjLists[u];
-    while (temp)
-    {
-      int v = temp->vertex;
-      int weight = temp->weight;
+//     node *temp = graph->adjLists[u];
+//     while (temp)
+//     {
+//       int v = temp->vertex;
+//       int weight = temp->weight;
 
-      if (S[v] != 1 && d[v] > d[u] + weight)
-      {
-        d[v] = d[u] + weight;
-        pi[v] = u;
-      }
-      temp = temp->next;
-    }
-  }
-  printf("Shortest path by index: ");
-  for (int i = 0; i < graph->numVertices; i++)
-  {
-    printf("%d", d[i]);
-  }
-}
+//       if (S[v] != 1 && d[v] > d[u] + weight)
+//       {
+//         d[v] = d[u] + weight;
+//         pi[v] = u;
+//       }
+//       temp = temp->next;
+//     }
+//   }
+//   printf("Shortest path by index: ");
+//   for (int i = 0; i < graph->numVertices; i++)
+//   {
+//     printf("%d", d[i]);
+//   }
+// }
 
 //////////////////////////////// MAIN ///////////////////////////////////
 int main()
 {
-  int arr[9] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
-  heap *hp = createHeap(9, arr);
-
-  printHeap(hp);
-  extractMin(hp);
-  printHeap(hp);
 
   Graph *graph = createAGraph(9);
   addEdge(graph, 0, 1, 4);
@@ -361,7 +351,6 @@ int main()
   addEdge(graph, 1, 2, 8);
   addEdge(graph, 7, 8, 7);
   addEdge(graph, 7, 6, 1);
-  addEdge(graph, 1, 2, 8);
   addEdge(graph, 2, 8, 2);
   addEdge(graph, 2, 5, 4);
   addEdge(graph, 6, 5, 2);
@@ -370,9 +359,12 @@ int main()
   addEdge(graph, 3, 4, 9);
   addEdge(graph, 5, 4, 10);
 
+  heap *hp = createHeap(graph->numEdges, graph);
+  printHeap(hp);
+
   printGraph(graph);
 
-  dijkstra(graph, 0);
+  // dijkstra(graph, 0);
 
   return 0;
 }
