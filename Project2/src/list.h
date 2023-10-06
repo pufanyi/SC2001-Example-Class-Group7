@@ -1,4 +1,0 @@
-#ifndef PROJECT2_LIST_H
-#define PROJECT2_LIST_H
-
-#endif //PROJECT2_LIST_H

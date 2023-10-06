@@ -181,9 +181,9 @@ void heapify(heap *h, int index)
 
   // store left or right element in min if
   // any of these is smaller that its parent
-  if (left != -1 && h->arr[left]->weight < h->arr[index]->weight)
+  if (left != -1 && h->arr[left]->weight < h->arr[index]->weight) // comp
     min = left;
-  if (right != -1 && h->arr[right]->weight < h->arr[min]->weight)
+  if (right != -1 && h->arr[right]->weight < h->arr[min]->weight) // comp
     min = right;
 
   // Swapping the nodes
@@ -368,3 +368,8 @@ int main()
 
   return 0;
 }
+
+
+/*
+Heap 
+*/
