@@ -44,7 +44,7 @@ int push_up(Heap *heap, int index, int *compare_count) {
     int parent = (index - 1) / 2;
     if (heap->nodes[parent].distance > heap->nodes[index].distance) {
         swap(heap, parent, index);
-        push_up(heap, parent);
+        push_up(heap, parent, compare_count);
         index = parent;
     }
     return index;

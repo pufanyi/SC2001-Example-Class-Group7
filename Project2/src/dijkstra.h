@@ -12,7 +12,7 @@ int *dijkstra_adj_matrix(Graph *graph, int *compare_count) {
     }
 
     GraphAdjMatrix *adjMatrix = graph->graph.adjMatrix;
-    int numVertices = adjMatrix->numVertices;
+    int numVertices = graph->numVertices;
     int *distances = (int *) malloc(numVertices * sizeof(int));
     int *visited = (int *) malloc(numVertices * sizeof(int));
 
@@ -32,11 +32,14 @@ int *dijkstra_adj_matrix(Graph *graph, int *compare_count) {
                 min_index = j;
             }
         }
+        if (min == INT_MAX) {
+            break;
+        }
         visited[min_index] = 1;
         for (int j = 0; j < numVertices; ++j) {
-            if (!visited[j] && (++(*compare_count)) && adjMatrix->adjMatrix[min_index][j] &&
-                distances[min_index] != INT_MAX &&
-                distances[min_index] + adjMatrix->adjMatrix[min_index][j] < distances[j]) {
+            if (!visited[j] && (++(*compare_count)) && adjMatrix->adjMatrix[min_index][j] != INT_MAX &&
+                (distances[j] == INT_MAX ||
+                 distances[min_index] + adjMatrix->adjMatrix[min_index][j] < distances[j])) {
                 distances[j] = distances[min_index] + adjMatrix->adjMatrix[min_index][j];
             }
         }
@@ -52,7 +55,7 @@ int *dijkstra_adj_list(Graph *graph, int *compare_count) {
     }
 
     GraphAdjList *adjList = graph->graph.adjList;
-    int numVertices = adjList->numVertices;
+    int numVertices = graph->numVertices;
     int *distances = (int *) malloc(numVertices * sizeof(int));
     int *visited = (int *) malloc(numVertices * sizeof(int));
 
@@ -70,11 +73,16 @@ int *dijkstra_adj_list(Graph *graph, int *compare_count) {
         int min_index = heap->nodes[0].vertex;
         visited[min_index] = 1;
 
+        if (distances[min_index] == INT_MAX) {
+            break;
+        }
+
         update(heap, min_index, INT_MAX, compare_count);
 
         for (ListNode *node = adjList->adjLists[min_index]; node != NULL; node = node->next) {
-            if (!visited[node->vertex] && (++(*compare_count)) && distances[min_index] != INT_MAX &&
-                distances[min_index] + node->weight < distances[node->vertex]) {
+            if (!visited[node->vertex] && (++(*compare_count)) &&
+                (distances[node->vertex] != INT_MAX ||
+                 distances[min_index] + node->weight < distances[node->vertex])) {
                 distances[node->vertex] = distances[min_index] + node->weight;
                 update(heap, node->vertex, distances[node->vertex], compare_count);
             }

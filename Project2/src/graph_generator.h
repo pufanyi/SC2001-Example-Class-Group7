@@ -9,11 +9,10 @@
 #define MAX_WEIGHT 100
 
 int randint(int min, int max) {
-    return min + (randInt() % (max - min + 1));
+    return min + (randPositiveInt() % (max - min + 1));
 }
 
-void random_graph(Graph *graph, int numEdges) {
-    int numVertices = graph->graph.adjList->numVertices;
+void random_graph(Graph *graph, int numVertices, int numEdges) {
 
     for (int i = 0; i < numEdges; ++i) {
         int vertex1 = randint(0, numVertices - 1);
@@ -26,13 +25,14 @@ void random_graph(Graph *graph, int numEdges) {
 
 Graph *random_graph_adj_matrix(int numVertices, int numEdges) {
     Graph *graph = create_graph(ADJ_MATRIX, numVertices);
-    random_graph(graph, numEdges);
+    random_graph(graph, numVertices, numEdges);
     return graph;
 }
 
 Graph *random_graph_adj_list(int numVertices, int numEdges) {
     Graph *graph = create_graph(ADJ_LIST, numVertices);
-    random_graph(graph, numEdges);
+    random_graph(graph, numVertices, numEdges);
+//    printf("Graph: %d\n", graph->graph.adjList->numVertices);
     return graph;
 }
 
