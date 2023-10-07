@@ -37,7 +37,7 @@ void swap(Heap *heap, int index1, int index2) {
     heap->pos[heap->nodes[index2].vertex] = index2;
 }
 
-int push_up(Heap *heap, int index) {
+int push_up(Heap *heap, int index, int *compare_count) {
     if (index == 0) {
         return index;
     }
@@ -50,36 +50,42 @@ int push_up(Heap *heap, int index) {
     return index;
 }
 
-int push_down(Heap *heap, int index) {
+int push_down(Heap *heap, int index, int *compare_count) {
     int left = 2 * index + 1;
     int right = 2 * index + 2;
     int smallest = index;
-    if (left < heap->capacity && heap->nodes[left].distance < heap->nodes[smallest].distance) {
+    if (left < heap->capacity && (++(*compare_count)) &&
+        heap->nodes[left].distance < heap->nodes[smallest].distance) {
         smallest = left;
     }
-    if (right < heap->capacity && heap->nodes[right].distance < heap->nodes[smallest].distance) {
+    if (right < heap->capacity && (++(*compare_count)) &&
+        heap->nodes[right].distance < heap->nodes[smallest].distance) {
         smallest = right;
     }
     if (smallest != index) {
         swap(heap, smallest, index);
-        push_down(heap, smallest);
+        push_down(heap, smallest, compare_count);
     }
     return smallest;
 }
 
-void update(Heap *heap, int vertex, int distance) {
+void update(Heap *heap, int vertex, int distance, int *compare_count) {
     int index = heap->pos[vertex];
     heap->nodes[index].distance = distance;
-    int next_index = push_up(heap, index);
+    int next_index = push_up(heap, index, compare_count);
     while (next_index != index) {
         index = next_index;
-        next_index = push_up(heap, index);
+        next_index = push_up(heap, index, compare_count);
     }
-    next_index = push_down(heap, index);
+    next_index = push_down(heap, index, compare_count);
     while (next_index != index) {
         index = next_index;
-        next_index = push_down(heap, index);
+        next_index = push_down(heap, index, compare_count);
     }
+}
+
+HeapNode top(Heap *heap) {
+    return heap->nodes[0];
 }
 
 #endif //PROJECT2_HEAP_H
