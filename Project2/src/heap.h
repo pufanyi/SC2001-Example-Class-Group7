@@ -9,7 +9,6 @@ typedef struct HeapNode {
 } HeapNode;
 
 typedef struct Heap {
-    int size;
     int capacity;
     HeapNode *nodes;
     int *pos; // pos[i] is the index of vertex i in the heap
@@ -17,9 +16,12 @@ typedef struct Heap {
 
 Heap *create_heap(int capacity) {
     Heap *heap = (Heap *) malloc(sizeof(Heap));
-    heap->size = 0;
     heap->capacity = capacity;
     heap->nodes = (HeapNode *) malloc(capacity * sizeof(HeapNode));
+    for (int i = 0; i < capacity; i++) {
+        heap->nodes[i].vertex = i;
+        heap->nodes[i].distance = INT_MAX;
+    }
     heap->pos = (int *) malloc(capacity * sizeof(int));
     for (int i = 0; i < capacity; i++) {
         heap->pos[i] = i;
@@ -52,10 +54,10 @@ int push_down(Heap *heap, int index) {
     int left = 2 * index + 1;
     int right = 2 * index + 2;
     int smallest = index;
-    if (left < heap->size && heap->nodes[left].distance < heap->nodes[smallest].distance) {
+    if (left < heap->capacity && heap->nodes[left].distance < heap->nodes[smallest].distance) {
         smallest = left;
     }
-    if (right < heap->size && heap->nodes[right].distance < heap->nodes[smallest].distance) {
+    if (right < heap->capacity && heap->nodes[right].distance < heap->nodes[smallest].distance) {
         smallest = right;
     }
     if (smallest != index) {
