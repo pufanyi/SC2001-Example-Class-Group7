@@ -12,12 +12,12 @@ typedef struct ListNode {
 typedef struct GraphAdjList {
     int numVertices;
     ListNode **adjLists;
-} Graph;
+} GraphAdjList;
 
 typedef struct GraphAdjMatrix {
     int numVertices;
     int **adjMatrix;
-} GraphMatrix;
+} GraphAdjMatrix;
 
 typedef enum GraphType {
     ADJ_LIST,
