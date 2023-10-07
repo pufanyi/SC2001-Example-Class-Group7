@@ -8,4 +8,5 @@ add_executable(Project2 main.c
         graph.h
         graph_generator.h
         mersenne_twister.h
-        dijkstra.h)
+        dijkstra.h
+        analyze.h)

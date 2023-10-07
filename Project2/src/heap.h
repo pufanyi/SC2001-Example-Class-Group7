@@ -88,4 +88,10 @@ HeapNode top(Heap *heap) {
     return heap->nodes[0];
 }
 
+void destroy_heap(Heap *heap) {
+    free(heap->nodes);
+    free(heap->pos);
+    free(heap);
+}
+
 #endif //PROJECT2_HEAP_H

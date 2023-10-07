@@ -90,6 +90,7 @@ int *dijkstra_adj_list(Graph *graph, int *compare_count) {
     }
 
     free(visited);
+    destroy_heap(heap);
 
     return distances;
 }

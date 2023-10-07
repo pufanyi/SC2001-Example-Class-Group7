@@ -13,7 +13,6 @@ int randint(int min, int max) {
 }
 
 void random_graph(Graph *graph, int numVertices, int numEdges) {
-
     for (int i = 0; i < numEdges; ++i) {
         int vertex1 = randint(0, numVertices - 1);
         int vertex2 = randint(0, numVertices - 1);
