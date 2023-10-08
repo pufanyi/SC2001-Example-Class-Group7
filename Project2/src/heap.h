@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 
+typedef uint64_t compare_count_t;
+
 typedef struct HeapNode {
     int vertex;
     int distance;
@@ -37,7 +39,7 @@ void swap(Heap *heap, int index1, int index2) {
     heap->pos[heap->nodes[index2].vertex] = index2;
 }
 
-int push_up(Heap *heap, int index, int *compare_count) {
+int push_up(Heap *heap, int index, compare_count_t *compare_count) {
     if (index == 0) {
         return index;
     }
@@ -50,7 +52,7 @@ int push_up(Heap *heap, int index, int *compare_count) {
     return index;
 }
 
-int push_down(Heap *heap, int index, int *compare_count) {
+int push_down(Heap *heap, int index, compare_count_t *compare_count) {
     int left = 2 * index + 1;
     int right = 2 * index + 2;
     int smallest = index;
@@ -69,7 +71,7 @@ int push_down(Heap *heap, int index, int *compare_count) {
     return smallest;
 }
 
-void update(Heap *heap, int vertex, int distance, int *compare_count) {
+void update(Heap *heap, int vertex, int distance, compare_count_t *compare_count) {
     int index = heap->pos[vertex];
     heap->nodes[index].distance = distance;
     int next_index = push_up(heap, index, compare_count);

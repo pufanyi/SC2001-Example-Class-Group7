@@ -58,15 +58,17 @@ void export_result(AnalysisResultList *result_list, const char *file_name) {
 
 int analyze_adj_matrix(int num_vertices, int num_edges) {
     Graph *graph = random_graph_adj_matrix(num_vertices, num_edges);
-    int compare_count = 0;
+    compare_count_t compare_count = 0;
     dijkstra_adj_matrix(graph, &compare_count);
+    destroy_graph(graph);
     return compare_count;
 }
 
 int analyze_adj_list(int num_vertices, int num_edges) {
     Graph *graph = random_graph_adj_list(num_vertices, num_edges);
-    int compare_count = 0;
+    compare_count_t compare_count = 0;
     dijkstra_adj_list(graph, &compare_count);
+    destroy_graph(graph);
     return compare_count;
 }
 
@@ -106,8 +108,8 @@ void analyze_with_different_method(int num_vertices_start,
 }
 
 void analyze_diff_edge_matrix() {
-    const char *file_name = "diff_edge_matrix.csv";
-    const int NUM_VERTICES = 5000;
+    const char *file_name = "../data/diff_edge_matrix.csv";
+    const int NUM_VERTICES = 1000;
     const int NUM_EDGES_START = 10000;
     const int NUM_EDGES_END = 1000000;
     const int NUM_EDGES_STEP = 10000;
@@ -119,12 +121,12 @@ void analyze_diff_edge_matrix() {
 }
 
 void analyze_diff_vertex_matrix() {
-    const char *file_name = "diff_vertex_matrix.csv";
+    const char *file_name = "../data/diff_vertex_matrix.csv";
     const int NUM_VERTICES_START = 100;
     const int NUM_VERTICES_END = 5000;
     const int NUM_VERTICES_STEP = 100;
     const int NUM_EDGES = 10000;
-    const int NUM_TRIALS = 10;
+    const int NUM_TRIALS = 100;
     AnalysisResultList *result_list = init_result_list();
     analyze_with_different_method(NUM_VERTICES_START, NUM_VERTICES_END, NUM_VERTICES_STEP, NUM_EDGES, NUM_EDGES,
                                   NUM_EDGES, NUM_TRIALS, result_list, analyze_adj_matrix);
@@ -132,7 +134,7 @@ void analyze_diff_vertex_matrix() {
 }
 
 void analyze_diff_edge_list() {
-    const char *file_name = "diff_edge_list.csv";
+    const char *file_name = "../data/diff_edge_list.csv";
     const int NUM_VERTICES = 100000;
     const int NUM_EDGES_START = 10000;
     const int NUM_EDGES_END = 1000000;
@@ -145,12 +147,12 @@ void analyze_diff_edge_list() {
 }
 
 void analyze_diff_vertex_list() {
-    const char *file_name = "diff_vertex_list.csv";
-    const int NUM_VERTICES_START = 100000;
-    const int NUM_VERTICES_END = 1000000;
-    const int NUM_VERTICES_STEP = 10000;
-    const int NUM_EDGES = 2000000;
-    const int NUM_TRIALS = 10;
+    const char *file_name = "../data/diff_vertex_list.csv";
+    const int NUM_VERTICES_START = 1000;
+    const int NUM_VERTICES_END = 100000;
+    const int NUM_VERTICES_STEP = 1000;
+    const int NUM_EDGES = 200000;
+    const int NUM_TRIALS = 100;
     AnalysisResultList *result_list = init_result_list();
     analyze_with_different_method(NUM_VERTICES_START, NUM_VERTICES_END, NUM_VERTICES_STEP, NUM_EDGES, NUM_EDGES,
                                   NUM_EDGES, NUM_TRIALS, result_list, analyze_adj_list);
@@ -158,10 +160,62 @@ void analyze_diff_vertex_list() {
 }
 
 void analyze() {
-    analyze_diff_edge_matrix();
-    analyze_diff_vertex_matrix();
-    analyze_diff_edge_list();
+    // analyze_diff_edge_matrix();
+    // analyze_diff_vertex_matrix();
+    // analyze_diff_edge_list();
     analyze_diff_vertex_list();
+}
+
+void test() {
+    Graph *graph = random_graph_adj_list(100, 1000);
+    Graph *newGraph = adj_graph_to_matrix(graph);
+    compare_count_t compare_count = 0;
+    int *distances = dijkstra_adj_matrix(newGraph, &compare_count);
+    compare_count = 0;
+    int *distances2 = dijkstra_adj_list(graph, &compare_count);
+    for (int i = 0; i < graph->numVertices; ++i) {
+        if (distances[i] != distances2[i]) {
+            printf("Error: %d %d %d\n", i, distances[i], distances2[i]);
+            printf("Adjacency Matrix:\n");
+            print_graph(newGraph);
+            for (int j = 0; j < graph->numVertices; ++j) {
+                printf("%d ", distances[j]);
+            }
+            printf("\n");
+            printf("Adjacency List:\n");
+            print_graph(graph);
+            for (int j = 0; j < graph->numVertices; ++j) {
+                printf("%d ", distances2[j]);
+            }
+            printf("\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+    destroy_graph(graph);
+
+
+    // Graph *graph = create_graph(ADJ_LIST, 5);
+
+    // add_edge(graph, 0, 3, 18);
+    // add_edge(graph, 0, 4, 27);
+    // add_edge(graph, 0, 0, 36);
+    // add_edge(graph, 0, 4, 77);
+    // add_edge(graph, 1, 1, 84);
+    // add_edge(graph, 2, 1, 40);
+    // add_edge(graph, 3, 3, 38);
+    // add_edge(graph, 3, 0, 90);
+    // add_edge(graph, 3, 3, 12);
+    // add_edge(graph, 4, 4, 60);
+
+    // compare_count_t compare_count = 0;
+    // int *distances = dijkstra_adj_list(graph, &compare_count);
+    // for (int i = 0; i < graph->numVertices; ++i) {
+    //     printf("%d ", distances[i]);
+    // }
+    // printf("\n");
+    // printf("%llu\n", compare_count);
+
+    // exit(EXIT_SUCCESS);
 }
 
 #endif //PROJECT2_ANALYZE_H

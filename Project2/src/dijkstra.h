@@ -6,7 +6,8 @@
 #include "graph.h"
 #include "heap.h"
 
-int *dijkstra_adj_matrix(Graph *graph, int *compare_count) {
+
+int *dijkstra_adj_matrix(Graph *graph, compare_count_t *compare_count) {
     if (graph->type != ADJ_MATRIX) {
         return NULL;
     }
@@ -49,7 +50,7 @@ int *dijkstra_adj_matrix(Graph *graph, int *compare_count) {
     return distances;
 }
 
-int *dijkstra_adj_list(Graph *graph, int *compare_count) {
+int *dijkstra_adj_list(Graph *graph, compare_count_t *compare_count) {
     if (graph->type != ADJ_LIST) {
         return NULL;
     }
@@ -69,19 +70,15 @@ int *dijkstra_adj_list(Graph *graph, int *compare_count) {
     Heap *heap = create_heap(numVertices);
     update(heap, 0, 0, compare_count);
 
-    for (int i = 1; i < numVertices; ++i) {
+    while (heap->nodes[0].distance != INT_MAX) {
         int min_index = heap->nodes[0].vertex;
         visited[min_index] = 1;
-
-        if (distances[min_index] == INT_MAX) {
-            break;
-        }
 
         update(heap, min_index, INT_MAX, compare_count);
 
         for (ListNode *node = adjList->adjLists[min_index]; node != NULL; node = node->next) {
             if (!visited[node->vertex] && (++(*compare_count)) &&
-                (distances[node->vertex] != INT_MAX ||
+                (distances[node->vertex] == INT_MAX ||
                  distances[min_index] + node->weight < distances[node->vertex])) {
                 distances[node->vertex] = distances[min_index] + node->weight;
                 update(heap, node->vertex, distances[node->vertex], compare_count);

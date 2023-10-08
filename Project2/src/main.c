@@ -3,6 +3,7 @@
 #include "analyze.h"
 
 int main() {
+    test();
     analyze();
     return 0;
 }
