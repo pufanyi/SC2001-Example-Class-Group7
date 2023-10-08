@@ -135,7 +135,7 @@ void analyze_diff_vertex_matrix() {
 
 void analyze_diff_edge_list() {
     const char *file_name = "../data/diff_edge_list.csv";
-    const int NUM_VERTICES = 100000;
+    const int NUM_VERTICES = 10000;
     const int NUM_EDGES_START = 10000;
     const int NUM_EDGES_END = 1000000;
     const int NUM_EDGES_STEP = 10000;
@@ -162,8 +162,8 @@ void analyze_diff_vertex_list() {
 void analyze() {
     // analyze_diff_edge_matrix();
     // analyze_diff_vertex_matrix();
-    // analyze_diff_edge_list();
-    analyze_diff_vertex_list();
+    analyze_diff_edge_list();
+    // analyze_diff_vertex_list();
 }
 
 void test() {
