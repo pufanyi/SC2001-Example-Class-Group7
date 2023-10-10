@@ -3,11 +3,14 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <time.h>
 #include <stdlib.h>
 
 #include "graph.h"
 #include "graph_generator.h"
 #include "dijkstra.h"
+
+typedef long long time_t;
 
 typedef struct AnalysisResult {
     int num_vertices;
@@ -72,6 +75,35 @@ int analyze_adj_list(int num_vertices, int num_edges) {
     return compare_count;
 }
 
+time_t analyze_time_adj_matrix(int num_vertices, int num_edges) {
+
+    Graph *graph = random_graph_adj_matrix(num_vertices, num_edges);
+    struct timespec start, end;
+    compare_count_t compare_count = 0;
+
+    clock_gettime(CLOCK_MONOTONIC, &start);
+    dijkstra_adj_matrix(graph, &compare_count);
+    clock_gettime(CLOCK_MONOTONIC, &end);
+
+    destroy_graph(graph);
+
+    return (end.tv_sec - start.tv_sec) * 1000000000LL + (end.tv_nsec - start.tv_nsec);
+}
+
+time_t analyze_time_adj_list(int num_vertices, int num_edges) {
+    Graph *graph = random_graph_adj_list(num_vertices, num_edges);
+    struct timespec start, end;
+    compare_count_t compare_count = 0;
+
+    clock_gettime(CLOCK_MONOTONIC, &start);
+    dijkstra_adj_list(graph, &compare_count);
+    clock_gettime(CLOCK_MONOTONIC, &end);
+
+    destroy_graph(graph);
+
+    return (end.tv_sec - start.tv_sec) * 1000000000LL + (end.tv_nsec - start.tv_nsec);
+}
+
 typedef int (*AnalyzeFunction)(int, int);
 
 void analyze_with_different_edges(int num_vertices, int num_edges_start, int num_edges_end,
@@ -82,7 +114,6 @@ void analyze_with_different_edges(int num_vertices, int num_edges_start, int num
         fflush(stdout);
         for (int j = 0; j < num_trials; ++j) {
             AnalysisResult result;
-            result.num_vertices = num_vertices;
             result.num_edges = i;
             result.compare_count = analyze(num_vertices, i);
             add_result(result_list, result);
@@ -159,11 +190,57 @@ void analyze_diff_vertex_list() {
     export_result(result_list, file_name);
 }
 
+typedef time_t (*AnalyzeTimeFunction)(int, int);
+
+void analyze_time_with_different_edges(int num_vertices, int num_edges_start, int num_edges_end,
+                                       int num_edges_step, int num_trials,
+                                       const char *output_file, AnalyzeTimeFunction analyze) {
+    FILE *file = fopen(output_file, "w");
+    fprintf(file, "num_vertices,num_edges,time\n");
+    for (int times = 0; times < num_trials; ++times) {
+        printf("Trial %d\n", times);
+        fflush(stdout);
+        for (int i = num_edges_start; i <= num_edges_end; i += num_edges_step) {
+            printf("num_vertices: %d, num_edges: %d\n", num_vertices, i);
+            fflush(stdout);
+            int num_edges = i;
+            time_t compare_count = analyze(num_vertices, i);
+            fprintf(file, "%d,%d,%lld\n", num_vertices, num_edges, compare_count);
+            fflush(file);
+        }
+    }
+    fclose(file);
+}
+
+void analyze_time_diff_edge_matrix() {
+    const char *file_name = "../data/time_diff_edge_matrix.csv";
+    const int NUM_VERTICES = 1000;
+    const int NUM_EDGES_START = 10000;
+    const int NUM_EDGES_END = 1000000;
+    const int NUM_EDGES_STEP = 10000;
+    const int NUM_TRIALS = 1000;
+    analyze_time_with_different_edges(NUM_VERTICES, NUM_EDGES_START, NUM_EDGES_END, NUM_EDGES_STEP, NUM_TRIALS,
+                                      file_name, analyze_time_adj_matrix);
+}
+
+void analyze_time_diff_edge_list() {
+    const char *file_name = "../data/time_diff_edge_list.csv";
+    const int NUM_VERTICES = 1000;
+    const int NUM_EDGES_START = 10000;
+    const int NUM_EDGES_END = 1000000;
+    const int NUM_EDGES_STEP = 10000;
+    const int NUM_TRIALS = 1000;
+    analyze_time_with_different_edges(NUM_VERTICES, NUM_EDGES_START, NUM_EDGES_END, NUM_EDGES_STEP, NUM_TRIALS,
+                                      file_name, analyze_time_adj_list);
+}
+
 void analyze() {
     // analyze_diff_edge_matrix();
     // analyze_diff_vertex_matrix();
-    analyze_diff_edge_list();
+    // analyze_diff_edge_list();
     // analyze_diff_vertex_list();
+    analyze_time_diff_edge_matrix();
+//    analyze_time_diff_edge_list();
 }
 
 void test() {
