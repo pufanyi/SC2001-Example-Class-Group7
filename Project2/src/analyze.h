@@ -235,11 +235,11 @@ void analyze_time_diff_edge_list() {
 }
 
 void analyze() {
-    // analyze_diff_edge_matrix();
-    // analyze_diff_vertex_matrix();
-    // analyze_diff_edge_list();
-    // analyze_diff_vertex_list();
-    // analyze_time_diff_edge_matrix();
+    analyze_diff_edge_matrix();
+    analyze_diff_vertex_matrix();
+    analyze_diff_edge_list();
+    analyze_diff_vertex_list();
+    analyze_time_diff_edge_matrix();
     analyze_time_diff_edge_list();
 }
 
