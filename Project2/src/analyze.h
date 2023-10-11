@@ -201,8 +201,8 @@ void analyze_time_with_different_edges(int num_vertices, int num_edges_start, in
         printf("Trial %d\n", times);
         fflush(stdout);
         for (int i = num_edges_start; i <= num_edges_end; i += num_edges_step) {
-            printf("num_vertices: %d, num_edges: %d\n", num_vertices, i);
-            fflush(stdout);
+            // printf("num_vertices: %d, num_edges: %d\n", num_vertices, i);
+            // fflush(stdout);
             int num_edges = i;
             time_t compare_count = analyze(num_vertices, i);
             fprintf(file, "%d,%d,%lld\n", num_vertices, num_edges, compare_count);
@@ -218,7 +218,7 @@ void analyze_time_diff_edge_matrix() {
     const int NUM_EDGES_START = 10000;
     const int NUM_EDGES_END = 1000000;
     const int NUM_EDGES_STEP = 10000;
-    const int NUM_TRIALS = 1000;
+    const int NUM_TRIALS = 100;
     analyze_time_with_different_edges(NUM_VERTICES, NUM_EDGES_START, NUM_EDGES_END, NUM_EDGES_STEP, NUM_TRIALS,
                                       file_name, analyze_time_adj_matrix);
 }
@@ -229,7 +229,7 @@ void analyze_time_diff_edge_list() {
     const int NUM_EDGES_START = 10000;
     const int NUM_EDGES_END = 1000000;
     const int NUM_EDGES_STEP = 10000;
-    const int NUM_TRIALS = 1000;
+    const int NUM_TRIALS = 100;
     analyze_time_with_different_edges(NUM_VERTICES, NUM_EDGES_START, NUM_EDGES_END, NUM_EDGES_STEP, NUM_TRIALS,
                                       file_name, analyze_time_adj_list);
 }
@@ -239,8 +239,8 @@ void analyze() {
     // analyze_diff_vertex_matrix();
     // analyze_diff_edge_list();
     // analyze_diff_vertex_list();
-    analyze_time_diff_edge_matrix();
-//    analyze_time_diff_edge_list();
+    // analyze_time_diff_edge_matrix();
+    analyze_time_diff_edge_list();
 }
 
 void test() {
