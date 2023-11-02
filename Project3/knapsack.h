@@ -14,7 +14,7 @@ int max(const int a, const int b) {
 }
 
 int knapsack_recursive(const Item *items_begin, const Item *items_end,
-                      const int capacity, const int *f_last) {
+                       const int capacity, const int *f_last) {
     if (items_begin == items_end) {
         return f_last[capacity];
     }
