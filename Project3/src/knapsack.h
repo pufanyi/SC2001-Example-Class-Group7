@@ -13,6 +13,25 @@ int max(const int a, const int b) {
     return a > b ? a : b;
 }
 
+int knapsack_basic(const Item *items_begin, const Item *items_end, const int capacity) {
+    size_t len = items_end - items_begin;
+    int **f = calloc(len + 1, sizeof(int *));
+    for (int i = 0; i <= len; ++i) {
+        f[i] = calloc(capacity + 1, sizeof(int));
+        memset(f[i], 0, (capacity + 1) * sizeof(int));
+    }
+    for (int i = 1; i <= len; ++i) {
+        for (int j = 0; j <= capacity; ++j) {
+            for (int k = 0; k * items_begin[i - 1].weight <= j; ++k) {
+                f[i][j] = max(f[i][j], f[i - 1][j - k * items_begin[i - 1].weight] + k * items_begin[i - 1].profit);
+            }
+        }
+    }
+    int ans = f[len][capacity];
+    free(f);
+    return ans;
+}
+
 int knapsack_recursive(const Item *items_begin, const Item *items_end,
                        const int capacity, const int *f_last) {
     if (items_begin == items_end) {
