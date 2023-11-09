@@ -4,9 +4,9 @@ This is the example class project for SC2001 Algorithm Design & Analysis. We are
 
 ## Project Description
 
-Here is the [general description](General Information.pdf) of the project.
+Here is the [general description](https://pufanyi.github.io/SC2001-Example-Class-Group7/info/General%20Information.pdf) of the project.
 
-### Project 1: Integration of Mergesort \& Insertion Sort
+### Project 1: Integration of Mergesort & Insertion Sort
 
 We present a hybrid sorting algorithm that combines mergesort and insertion sort. Then we compare the performance with different implementations.
 
