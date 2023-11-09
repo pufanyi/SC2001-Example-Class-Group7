@@ -10,23 +10,23 @@ Here is the [general description](General Information.pdf) of the project.
 
 We present a hybrid sorting algorithm that combines mergesort and insertion sort. Then we compare the performance with different implementations.
 
-- [problems](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project1/problems/CX2101%20Project%201.pdf)
-- [codes](Project1/src)
-- [slides](Project1/slides/SC2001%20Example%20Class%201.pptx)
+- problems: [pdf](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project1/problems/CX2101%20Project%201.pdf)
+- codes: [GitHub](Project1/src)
+- slides: [pdf](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project1/slides/SC2001%20Example%20Class%201.pdf), [pptx](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project1/slides/SC2001%20Example%20Class%201.pptx)
 
 ### Project 2: The Dijkstra’s Algorithm
 
 We implement the Dijkstra algorithm with heap and array. Then we compare the performance with different implementations.
 
-- [problems](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project2/problems/CX2101%20Project%202.pdf)
-- [codes](Project2/src)
-- [slides](Project2/slides/SC2001%20Example%20Class%202.pptx)
+- problems: [pdf](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project2/problems/CX2101%20Project%202.pdf)
+- codes: [GitHub](Project2/src)
+- slides: [pdf](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project2/slides/SC2001%20Example%20Class%202.pptx), [pdf](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project2/slides/SC2001%20Example%20Class%202.pptx)
 
 ### Project 3: Dynamic Programming
 
 We design a dynamic programming algorithm to solve the knapsack problem. Then we compare the performance with different implementations.
 
-- [problems](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project3/problems/Project%203.pdf)
+- problems: [pdf](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project3/problems/Project%203.pdf)
 - [codes](Project3/src)
 - [slides](Project3/slides/SC2001%20Example%20Class%203.pptx)
 
