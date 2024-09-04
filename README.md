@@ -1,5 +1,3 @@
-# NTU SC2001 Algorithm Design & Analysis Project
-
 This is the example class project for SC2001 Algorithm Design & Analysis. We are Group 7 from Tutorial Group SCSA.
 
 ## Project Description
