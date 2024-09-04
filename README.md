@@ -32,9 +32,9 @@ We design a dynamic programming algorithm to solve the knapsack problem. Then we
 
 ## Team Members
 
-| Name | Email | GitHub Account |
-|---|---|---|
-| Pu Fanyi | [FPU001@e.ntu.edu.sg](mailto:FPU001@e.ntu.edu.sg) | [pufanyi](https://github.com/pufanyi) |
-| Qian Jianheng Oscar | [QIAN0081@e.ntu.edu.sg](mailto:QIAN0081@e.ntu.edu.sg) | [oscarqjh](https://github.com/oscarqjh) |
-| Pushparajan Roshini | [ROSHINI009@e.ntu.edu.sg](mailto:ROSHINI009@e.ntu.edu.sg) | [pushparajanroshini](https://github.com/pushparajanroshini) |
-| Rhea Susan George | [RHEA0003@e.ntu.edu.sg](mailto:RHEA0003@e.ntu.edu.sg) | [rheasgeorge](https://github.com/rheasgeorge) |
+| Name | Email |
+|---|---|
+| [Pu Fanyi](https://pufanyi.github.io) | [FPU001@e.ntu.edu.sg](mailto:FPU001@e.ntu.edu.sg) |
+| [Qian Jianheng Oscar](https://oscar-threejs.vercel.app/) | [QIAN0081@e.ntu.edu.sg](mailto:QIAN0081@e.ntu.edu.sg) |
+| [Pushparajan Roshini](https://github.com/pushparajanroshini) | [ROSHINI009@e.ntu.edu.sg](mailto:ROSHINI009@e.ntu.edu.sg) |
+| [Rhea Susan George](https://github.com/rheasgeorge) | [RHEA0003@e.ntu.edu.sg](mailto:RHEA0003@e.ntu.edu.sg) |
