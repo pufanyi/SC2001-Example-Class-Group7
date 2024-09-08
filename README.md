@@ -4,7 +4,7 @@ This is the example class project for SC2001 Algorithm Design & Analysis. We are
 
 Here is the [general description](https://pufanyi.github.io/SC2001-Example-Class-Group7/info/General%20Information.pdf) of the project.
 
-### Project 1: Integration of Mergesort & Insertion Sort
+## Project 1: Integration of Mergesort & Insertion Sort
 
 We present a hybrid sorting algorithm that combines mergesort and insertion sort. Then we compare the performance with different implementations.
 
@@ -12,7 +12,7 @@ We present a hybrid sorting algorithm that combines mergesort and insertion sort
 - codes: [algo](https://github.com/pufanyi/SC2001-Example-Class-Group7/tree/main/Project1/src), [data](https://github.com/pufanyi/SC2001-Example-Class-Group7/tree/main/Project1/data), [analysis](https://github.com/pufanyi/SC2001-Example-Class-Group7/tree/main/Project1/data_exploration)
 - slides: [pdf](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project1/slides/SC2001%20Example%20Class%201.pdf), [pptx](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project1/slides/SC2001%20Example%20Class%201.pptx)
 
-### Project 2: The Dijkstra’s Algorithm
+## Project 2: The Dijkstra’s Algorithm
 
 We implement the Dijkstra algorithm with heap and array. Then we compare the performance with different implementations.
 
@@ -20,7 +20,7 @@ We implement the Dijkstra algorithm with heap and array. Then we compare the per
 - codes: [algo](https://github.com/pufanyi/SC2001-Example-Class-Group7/tree/main/Project2/src), [data & analysis](https://github.com/pufanyi/SC2001-Example-Class-Group7/tree/main/Project2/data)
 - slides: [pdf](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project2/slides/SC2001%20Example%20Class%202.pdf), [pptx](https://pufanyi.github.io/SC2001-Example-Class-Group7/Project2/slides/SC2001%20Example%20Class%202.pptx)
 
-### Project 3: Dynamic Programming
+## Project 3: Dynamic Programming
 
 We design a dynamic programming algorithm to solve the knapsack problem. Then we compare the performance with different implementations.
 
