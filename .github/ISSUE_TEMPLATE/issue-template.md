@@ -1,7 +1,7 @@
 ---
-name: "[CODE / PRESENTATION] Short summary of the issue "
-about: Describe this issue template's purpose here.
-title: ''
+name: Issue Template
+about: If you have any questions about the code or presentation of our project
+title: "[CODE / PRESENTATION] Short summary of the issue "
 labels: ''
 assignees: ''
 
