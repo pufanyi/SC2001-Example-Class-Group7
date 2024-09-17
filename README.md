@@ -1,4 +1,4 @@
-*Note*: **Due to the recent influx of inquiries about this project, I am unable to respond to everyone individually on WeChat or Telegram. If you have any questions or suggestions for improvement, feel free to raise them by [submitting an issue](https://github.com/pufanyi/SC2001-Example-Class-Group7/issues/new/choose).**
+*Note*: **Due to the recent influx of inquiries about this project, I am unable to respond to everyone individually on WeChat or Telegram. If you have any questions or suggestions, feel free to raise them by [submitting an issue](https://github.com/pufanyi/SC2001-Example-Class-Group7/issues/new/choose).**
 
 This is the example class project for SC2001 Algorithm Design & Analysis. We are Group 7 from Tutorial Group SCSA.
 
